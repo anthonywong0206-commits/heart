@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react'
-import { Send, Moon, Sun, Cat } from 'lucide-react'
+import { Send, Moon, Sun, Cat, Trash2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 function getTime() {
@@ -104,6 +104,24 @@ export default function App() {
     }
   }
 
+
+  function clearChat() {
+    const confirmClear = window.confirm('確定要清除所有聊天紀錄？')
+
+    if (!confirmClear) return
+
+    const starter = [
+      {
+        role: 'assistant',
+        text: '嗯，我在。\n\n今晚係咪有啲難捱？',
+        time: getTime(),
+      },
+    ]
+
+    setMessages(starter)
+    localStorage.setItem('heart-chat', JSON.stringify(starter))
+  }
+
   return (
     <div className="flex h-screen bg-[#f5f5f1] dark:bg-slate-950">
       <aside className="hidden w-80 border-r border-white/30 bg-white/60 backdrop-blur-xl md:block dark:bg-slate-900/80">
@@ -135,12 +153,22 @@ export default function App() {
             </div>
           </div>
 
-          <button
-            onClick={() => setDark(!dark)}
-            className="rounded-full p-3 hover:bg-slate-100 dark:hover:bg-slate-800"
-          >
-            {dark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={clearChat}
+              className="rounded-full p-3 hover:bg-red-100 dark:hover:bg-red-900/40"
+              title="清除聊天"
+            >
+              <Trash2 size={18} className="text-red-500" />
+            </button>
+
+            <button
+              onClick={() => setDark(!dark)}
+              className="rounded-full p-3 hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              {dark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          </div>
         </header>
 
         <section className="scrollbar-soft flex-1 overflow-y-auto bg-[linear-gradient(to_bottom,#f8fafc,#f1f5f9)] px-4 py-6 dark:bg-[linear-gradient(to_bottom,#020617,#0f172a)]">
