@@ -64,3 +64,20 @@ export default defineConfig({
 
 目前版本使用前端模擬 AI 回覆，適合靜態部署到 GitHub Pages。
 如要接入 OpenAI API，建議使用 Vercel Serverless Function，避免 API Key 暴露在前端。
+
+
+## Vercel Build 修正版
+
+此版本已固定主要套件版本，避免因 `latest` 自動安裝 Tailwind CSS v4 而導致 Vercel build 失敗。
+
+如你已經上載到 GitHub，請更新以下檔案：
+- `package.json`
+
+然後在 Vercel 重新 Deploy。
+
+如仍然失敗，可在 Vercel：
+1. Project Settings
+2. Build & Development Settings
+3. Build Command: `npm run build`
+4. Output Directory: `dist`
+5. Install Command: `npm install`
