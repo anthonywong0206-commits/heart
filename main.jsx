@@ -70,6 +70,16 @@ function getTime() {
   });
 }
 
+function getHumanReplyDelay(userText, aiText = "") {
+  const baseThinking = 900;
+  const readingTime = Math.min(userText.length * 35, 1800);
+  const typingTime = Math.min(aiText.length * 28, 2600);
+  const randomPause = Math.floor(Math.random() * 1200);
+
+  // 令回覆速度更似真人：短句不會即刻彈出，長句會等耐少少
+  return Math.min(baseThinking + readingTime + typingTime + randomPause, 5600);
+}
+
 function createConversation(title = "新的陪伴對話") {
   return {
     id: crypto.randomUUID(),
@@ -308,10 +318,13 @@ function App() {
     setStarted(true);
     setTyping(true);
 
+    const replyText = getCompanionReply(value, selectedMood);
+    const replyDelay = getHumanReplyDelay(value, replyText);
+
     setTimeout(() => {
       const aiMessage = {
         role: "ai",
-        text: getCompanionReply(value, selectedMood),
+        text: replyText,
         time: getTime(),
       };
       updateActiveConversation((conv) => ({
@@ -321,7 +334,7 @@ function App() {
       }));
       setTyping(false);
       setSelectedMood(null);
-    }, 900);
+    }, replyDelay);
   }
 
   function speak(text) {
