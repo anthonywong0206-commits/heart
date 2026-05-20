@@ -66,18 +66,18 @@ export default defineConfig({
 如要接入 OpenAI API，建議使用 Vercel Serverless Function，避免 API Key 暴露在前端。
 
 
-## Vercel Build 修正版
+## Vercel Final Fix
 
-此版本已固定主要套件版本，避免因 `latest` 自動安裝 Tailwind CSS v4 而導致 Vercel build 失敗。
+This version pins exact dependency versions:
 
-如你已經上載到 GitHub，請更新以下檔案：
-- `package.json`
+- Vite 5.4.11
+- React 18.3.1
+- Tailwind CSS 3.4.17
+- PostCSS 8.4.49
+- Autoprefixer 10.4.20
 
-然後在 Vercel 重新 Deploy。
+This avoids Vercel installing Tailwind CSS v4 or Vite v8 unexpectedly.
 
-如仍然失敗，可在 Vercel：
-1. Project Settings
-2. Build & Development Settings
-3. Build Command: `npm run build`
-4. Output Directory: `dist`
-5. Install Command: `npm install`
+Important:
+After uploading these files to GitHub, make sure the new commit appears in Vercel.
+If Vercel still shows the old commit hash, your GitHub repository has not been updated successfully.
