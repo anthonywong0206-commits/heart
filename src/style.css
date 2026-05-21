@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,6 +15,7 @@ body {
 
 .scrollbar-soft::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 .scrollbar-soft::-webkit-scrollbar-thumb {
